@@ -1,0 +1,30 @@
+#include <iostream>
+#include<bits/stdc++.h>
+#include<algorithm>
+using namespace std;
+#define ll long long
+#define m 1000000007
+
+ll nCr_pascal(ll n,ll r,ll p){
+    int fact[r+1];
+    memset(fact,0,sizeof(fact));
+    fact[0]=1;
+    for(int i=1;i<=n;i++){
+        int x=(i>r)?r:i;
+        for(int j=x;j>0;j--){
+            fact[j]=(fact[j-1]+fact[j])%p;
+        }
+    }
+    return fact[r];
+}
+ll nCr_lucas(ll n,ll r,ll p){
+ if(r==0) return 1;
+  ll ni=n%p ,ri=r%p;
+  return (nCr_lucas(n/p,r/p,p)*nCr_pascal(ni,ri,p))%p;
+}
+
+int main() {
+    ll n,r;
+    cin>>n>>r;
+   cout<<nCr_lucas(n,r,m);
+}

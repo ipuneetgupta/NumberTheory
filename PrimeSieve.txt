@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+void PrimeSieve(int *p,int n){
+p[0]=0;
+p[1]=0;
+p[2]=1;
+//firstly set 1 for odd no. because even no is not prime no
+for(int i=3;i<=n;i+=2){
+    p[i]=1;
+}
+for(int i=3;i<=n;i++){
+    if(p[i]){
+        for(int j=i*i;j<=n;j+=2*i){//j=j+2i --->odd+even=always odd more optimise code j=i*i concept lie in root N  method 
+             p[j]=0;                // where root N is prime no.if it is not divisible by no.which is less than root N vice veresa
+          //Mark all the multiples of that number as not prime.
+            //2. Optimisation Take a jump of 2i starting from i*i
+        }
+
+    }
+}
+   return; 
+}
+int main() {
+    int n=10000;
+    int p[1000000];
+    PrimeSieve(p,n);
+    cout<<p[3]<<endl;
+
+}

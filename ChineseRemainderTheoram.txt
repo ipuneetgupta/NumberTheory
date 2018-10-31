@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+//modulu inverse using bitmasking
+int Moudular_inverse(int a,int p,int m){
+    int ans=1;
+    while(p!=0){
+        if(p&1){
+            ans=(ans*a)%m;
+        }
+        a=(a*a)%m;
+        p=p>>1;
+    }
+    return ans%m;
+}
+//chinese remainder theoram
+int CRT(int rem[],int p[],int n){
+    int prod=1;
+    int ans=0;
+    //product of given no,
+    for(int i=0;i<n;i++)  prod*=p[i];
+    //pp[i] in which every index represent bucket divisble by all no. except n[i]
+    int pp[n];
+    for(int i=0;i<n;i++) pp[i]=prod/p[i];
+    //inverse of pp[i] wrt to n[i]
+    int inv[n];                 //a^m-2=a^-1 by inverse euler or fermat little theoram also proove
+    for(int i=0;i<n;i++) inv[i]=Moudular_inverse(pp[i],p[i]-2,p[i]);
+    //sum of every bucket rem[i]*inv[i]*pp[i]
+    // here rem[i]*inv[i]=represent one part which is not divisble by p[i]
+    //or pp[i] another part which is divisible by p[i]
+   for(int i=0;i<n;i++){
+     ans=ans%prod+((rem[i]*inv[i]%prod)*(pp[i]%prod))%prod;
+   }
+   return (ans+prod)%prod;
+}
+int main() {
+    int n;
+    cin>>n;
+    int p[n],rem[n];
+    for(int i=0;i<n;i++) cin>>p[i];
+     for(int i=0;i<n;i++) cin>>rem[i];
+     cout<<CRT(rem,p,n)<<endl;
+}

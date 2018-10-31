@@ -1,0 +1,48 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+#define N 10000000
+#define ll long long 
+#define vec vector<ll>
+vec primes;
+void sieve(){
+    int arr[N]={0};
+    for(ll i=3;i<N;i+=2) arr[i]=1; 
+    arr[2]=1;
+    for(ll i=3;i<=N;i+=2){
+    for(ll j=i*i;j<=N;j+=2*i){
+        arr[j]=0;
+    }
+    }
+    for(ll i=0;i<=N;i++){
+        if(arr[i]) primes.push_back(i);
+    }
+}
+vector<ll> Factorise(ll n){
+sieve();
+vec factors;
+ll i=0;
+ll p=primes[i];
+while(p*p<=n){
+    if(n%p==0){
+        factors.push_back(p);
+        while(n%p==0){
+           n=n/p;
+        }
+    }
+    i++;
+    p=primes[i];
+}
+if(n!=1){
+    factors.push_back(n);
+}
+return factors;
+}
+int main() {
+  ll n;
+  cin>>n;
+  vec ans=Factorise(n);
+  for(int i=0;i<ans.size();i++){
+      cout<<ans[i]<<" ";
+  }
+}

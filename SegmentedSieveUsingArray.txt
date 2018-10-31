@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+#define ll long long
+int p[1000044]={0};
+void sieve(){
+    //set true that every odd no, is prime 
+    for(long i=1;i<=1000000;i+=2) p[i]=1;
+    //2 is even prime no;
+    p[2]=1;
+    p[1]=0;
+    //Now check every odd no. is prime or not
+    for(long i=3;i<=1000000;i+=2){
+        //check at every  iteration is i is 0 or not 0 is not prime no
+        if(p[i]){
+        //Now initilize j with i^2 because before i^2 are definitely divisible by less than no. j
+        for(long j=i*i;j<=1000000;j=j+2*i){
+            // set every divisible no. 0 ===>not prime no.
+            p[j]=0;
+        }
+        }
+    }
+}
+ void SegSieve(ll a,ll b){
+     sieve();
+     //first make arrray of size b-a
+     int seg[b-a+1];
+     for(ll i=0;i<=b-a;i++) seg[i]=1;
+     // now we apply root n method here we check  how many no. is divisble by prime no. less than
+     //root b if that is not divisible mean it is prime no.
+     for(ll i=2;i*i<=b;i++){
+         if(p[i]){
+            for(ll j=a;j<=b;j++){
+                if(j==1) {
+                    seg[j-a]=0;
+                    continue;
+                }
+                if(i==j) continue;
+               if (j%i==0) {
+                   seg[j-a]=0;
+               }
+            }
+         }
+     }
+     for(ll i=a;i<=b;i++){
+        // cout<<seg[i-a]<<"  "<<i<<endl;
+        if(seg[i-a]==1){
+           cout<<i<<endl;
+        }
+     }
+ }
+int main() {
+   int t;
+   cin>>t;
+   while(t--){
+       ll a,b;
+       cin>>a>>b;
+       SegSieve(a,b);
+       cout<<endl;
+   }
+}

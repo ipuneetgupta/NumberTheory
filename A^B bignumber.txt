@@ -1,0 +1,40 @@
+#include <iostream>
+#include<string>
+#define ll unsigned long long
+#define p 1000000007
+using namespace std;
+
+ll StringToInt(string n,ll m){
+ ll ans=0;
+ for(ll i=0;i<n.size();i++){
+     ans=(ans*10)%m+(n[i]-'0');
+     ans=ans%m;
+ }
+ return ans;
+}
+ll ModuloExponentiation(ll x,ll y){
+    if(y==0){
+        return 1;
+    }
+    ll temp=ModuloExponentiation(x,y/2);
+      temp=temp%p;
+      temp=(temp*temp)%p;
+    if(y&1) {
+    return (x*temp)%p;
+    }
+   return temp;
+}
+
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        string a,b;
+        cin>>a>>b;
+        ll x=StringToInt(a,p);
+        ll y=StringToInt(b,p-1);
+        ll ans=ModuloExponentiation(x,y);
+        cout<<ans<<endl;
+    }
+}

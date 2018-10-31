@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+int ex,ey;
+//Mul Inv Equation =>ab+k1m=gcd(a,m)//a and m are coprime No
+void Mul_InvEuclid(long a,long m){
+    if(m==0){
+        ex=1,ey=0;
+        return;
+    }
+    Mul_InvEuclid(m,a%m);
+    int temp=ex;
+    ex=ey;
+    ey=temp-(a/m)*ey;
+}
+int main() {
+    int a,m;
+    cin>>a>>m;
+    Mul_InvEuclid(a,m);
+    cout<<"Mul Inv Using Extended => "<<(ex+m)%m<<endl;
+}

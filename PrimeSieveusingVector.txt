@@ -1,0 +1,40 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+#define ll long long 
+#define lim 100000000
+vector<bool> prime(lim+1,false);
+vector<ll> primes;
+
+void sieve(){
+    primes.push_back(2);
+    //set odd no is true bcz only odd no. is may prime no.
+  for(ll i=3;i<=lim;i+=2){
+       prime[i]=true;
+  }
+
+  //now eliminte odd no. which is not prime no
+  for(ll i=3;i<=lim;i+=2){
+      if(prime[i]){
+          for(ll j=i*i;j<=lim;j+=2*i){
+              prime[j]=false;
+          }
+         
+      }
+  }
+  //which index is true now store the index value
+  for(ll i=3;i<=lim;i++){
+      if(prime[i]){
+          primes.push_back(i);
+      }
+  }
+}
+int main() {
+    ll n;
+    cin>>n;
+    sieve();
+    for(ll i=0;i<n;i++){
+        cout<<primes[i]<<endl;
+    }
+}
+

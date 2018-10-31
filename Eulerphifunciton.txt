@@ -1,0 +1,55 @@
+#include <iostream>
+#include<vector>
+#include<cmath>
+using namespace std;
+#define ll long long 
+vector<ll> prime;
+vector<ll>factor;
+#define P 3201
+void sieve(){
+    prime.push_back(2);
+ for(int i=3;i<P;i++){
+     bool isprime=true;
+     ll c_sqrt=sqrt(i)+1;
+     for(auto j=prime.begin();j!=prime.end();j++){
+            if(*j>c_sqrt) break;
+            if(i%(*j)==0){ 
+                isprime=false;
+                break;
+                }
+     }
+     if(isprime) prime.push_back(i);
+ }
+}
+void Pfactor(int n){
+    sieve();
+   ll p=prime[0];
+   ll i=0;
+   while(p*p<=n){
+        if(n%p==0){
+            factor.push_back(p);
+            while(n%p==0){
+                n=n/p;
+            }
+        }
+   i++;
+   p=prime[i];
+   }
+   if(n!=1&&n!=0){
+   factor.push_back(n);
+   }
+}
+int EulerPhi(int n){
+    Pfactor(n);
+  //  cout<<factor[0]<<endl;
+    ll ans=n;
+    for(unsigned int i=0;i<factor.size();i++){
+       ans=(float)(ans)*(((float)(factor[i]-1))/(float)factor[i]);
+    }
+    return ans;
+}
+int main() {
+    int n;
+    cin>>n;
+    cout<<EulerPhi(n)<<endl;
+}

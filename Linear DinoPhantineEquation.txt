@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+int ex ,ey;
+void EEuclid(long a,long b){
+    if(b==0) {
+        ex=1,ey=0;
+        return;
+    }
+    EEuclid(b,a%b);
+    int temp=ex;
+    ex=ey;
+    ey=temp-(a/b)*ey;
+}
+int K(long a,long b,long c){
+    if(b==0){
+        return c/a;
+    }
+   return K(b,a%b,c);
+}
+//ax+by=c here c =k*gcd(a,b) so x=kx0,y=ky0
+void Eqution(long a,long b,long c){
+   int k=K(a,b,c);
+   EEuclid(a,b);
+   cout<<ex<<" "<<ey<<endl;
+   cout<<k*ex<<"--"<<k*ey<<endl;
+}
+int main() {
+    int a,b,c;
+    cin>>a>>b>>c;
+    Eqution(a,b,c);
+}

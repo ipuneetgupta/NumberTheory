@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+void sieve(long long n){
+    if(n==1||n==0){
+        cout<<"NO"<<endl;
+        return;
+    }
+    bool flag=true;
+    for(long long i=2;i*i<=n;i++){
+        if(n%i==0){
+        flag=false;
+            break;
+        }
+    }
+    if(flag) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+    long long n;
+    cin>>n;
+    if(n%2==0){
+        cout<<"NO"<<endl;
+    }else  sieve(n);
+    }
+}

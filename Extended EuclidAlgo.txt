@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+    int ex,ey,gcd;
+    //gcd=>O(logN)-TC
+    //Equation ax+by=gcd(a,b)
+void euclid (int a,int b){
+    if(b==0){
+     ex=1, ey=0, gcd=a;
+     return;
+    }
+    euclid(b,a%b);
+    int temp=ex;
+    ex=ey;
+    ey=temp-(a/b)*ey;
+     cout<<ex<<" , "<<ey<<endl;
+        cout<<"GCD => "<<gcd;
+        cout<<endl;
+}
+//lcm
+void lcm(int a,int b){
+    cout<<"LCM => "<<(a*b)/gcd<<endl;
+}
+int main() {
+  int a,b;
+  cin>>a>>b;
+  euclid(a,b);
+}
